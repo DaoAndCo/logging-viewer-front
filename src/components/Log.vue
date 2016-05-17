@@ -1,5 +1,5 @@
 <template>
-  <tr>
+  <tr v-if="isVisible">
     <td>{{ log.created }}</td>
     <td>{{ log.level }}</td>
     <td>{{ log.scope }}</td>
@@ -12,7 +12,14 @@
 <script type="text/babel">
   export default {
     props: {
-      log: Object
+      log: Object,
+      filters: Object
+    },
+
+    computed: {
+      isVisible () {
+        return (this.filters.scopes.indexOf(this.log.scope) !== -1)
+      }
     }
   }
 

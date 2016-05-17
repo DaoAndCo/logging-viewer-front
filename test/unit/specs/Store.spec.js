@@ -1,4 +1,4 @@
-import { mutations } from 'src/store/store.js'
+import { mutations } from 'src/store/modules/logs.js'
 
 describe('mutations', () => {
   it('ADD_LOG', () => {

@@ -13,7 +13,6 @@ export const getLogs = function (store) {
     .post('find', {config: 'logs'})
     .then((response) => {
       store.dispatch('ADD_LOGS', response.data.logs)
-      // this.addLogs(response.data.logs)
     })
     .catch((response) => {
       console.log(response)
