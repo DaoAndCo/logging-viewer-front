@@ -5,3 +5,11 @@ export const toggleScope = function (store, scope) {
 export const addScopes = function (store, scopes) {
   return store.dispatch('ADD_SCOPES', scopes)
 }
+
+export const toggleLevel = function (store, level) {
+  return store.dispatch('TOGGLE_LEVEL', level)
+}
+
+export const addLevels = function (store, levels) {
+  return store.dispatch('ADD_LEVELS', levels)
+}

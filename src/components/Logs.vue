@@ -14,7 +14,7 @@
 </style>
 
 <template>
-  <log-filters :scopes="scopes"></log-filters>
+  <log-filters></log-filters>
 
   <div class="row">
     <div class="col-md-12">
@@ -45,18 +45,17 @@
 </template>
 
 <script type="text/babel">
-  import _ from 'lodash'
   import LogComponent from './Log.vue'
   import LogFiltersComponent from './LogFilters.vue'
-  import { logs } from 'src/store/logs/getters.js'
+  import { logs, scopes, levels } from 'src/store/logs/getters.js'
   import { getLogs } from 'src/store/logs/actions.js'
   import { logFilters } from 'src/store/logFilters/getters.js'
-  import { addScopes } from 'src/store/logFilters/actions.js'
+  import { addScopes, addLevels } from 'src/store/logFilters/actions.js'
 
   export default {
     vuex: {
-      getters: { logs, logFilters },
-      actions: { getLogs, addScopes }
+      getters: { logs, logFilters, scopes, levels },
+      actions: { getLogs, addScopes, addLevels }
     },
 
     components: {
@@ -66,8 +65,7 @@
 
     data () {
       return {
-        loading: true,
-        scopes: []
+        loading: true
       }
     },
 
@@ -77,9 +75,8 @@
         .then(() => {
           this.loading = false
 
-          this.scopes = this.logs.map(function (a) { return a.scope })
-          this.scopes = _.uniq(this.scopes)
           this.addScopes(this.scopes)
+          this.addLevels(this.levels)
         })
     }
   }

@@ -48,4 +48,52 @@ describe('LogFilters_mutations', () => {
     expect(state.logFilters.scopes).to.contain('scope2')
     expect(state.logFilters.scopes).not.to.contain('scope1')
   })
+
+  it('ADD_LEVEL', () => {
+    const state = {logFilters: {levels: ['l1', 'l2']}}
+    mutations.ADD_LEVEL(state, 'l3')
+
+    expect(state.logFilters.levels.length).to.equal(3)
+    expect(state.logFilters.levels).to.contain('l3')
+  })
+
+  it('ADD_LEVELS', () => {
+    const state = {logFilters: {levels: ['l1', 'l2']}}
+    mutations.ADD_LEVELS(state, ['l3', 'l4', 'l5'])
+
+    expect(state.logFilters.levels.length).to.equal(5)
+  })
+
+  it('REMOVE_LEVEL', () => {
+    const state = {logFilters: {levels: ['l1', 'l2']}}
+    mutations.REMOVE_LEVEL(state, 'l2')
+
+    expect(state.logFilters.levels.length).to.equal(1)
+    expect(state.logFilters.levels).to.contain('l1')
+    expect(state.logFilters.levels).not.to.contain('l2')
+  })
+
+  it('REMOVE_LEVEL_NOT_EXIST', () => {
+    const state = {logFilters: {levels: ['l1', 'l2']}}
+    mutations.REMOVE_LEVEL(state, 'notExist')
+
+    expect(state.logFilters.levels.length).to.equal(2)
+  })
+
+  it('TOGGLE_LEVEL_ADD', () => {
+    const state = {logFilters: {levels: ['l1', 'l2']}}
+    mutations.TOGGLE_LEVEL(state, 'l3')
+
+    expect(state.logFilters.levels.length).to.equal(3)
+    expect(state.logFilters.levels).to.contain('l3')
+  })
+
+  it('TOGGLE_LEVEL_REMOVE', () => {
+    const state = {logFilters: {levels: ['l1', 'l2']}}
+    mutations.TOGGLE_LEVEL(state, 'l1')
+
+    expect(state.logFilters.levels.length).to.equal(1)
+    expect(state.logFilters.levels).to.contain('l2')
+    expect(state.logFilters.levels).not.to.contain('l1')
+  })
 })

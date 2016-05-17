@@ -13,6 +13,8 @@ export const getLogs = function (store) {
     .post('find', {config: 'logs'})
     .then((response) => {
       store.dispatch('ADD_LOGS', response.data.logs)
+      store.dispatch('EXTRACT_SCOPES')
+      store.dispatch('EXTRACT_LEVELS')
     })
     .catch((response) => {
       console.log(response)
