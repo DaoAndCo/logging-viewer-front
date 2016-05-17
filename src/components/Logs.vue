@@ -14,9 +14,7 @@
 </style>
 
 <template>
-  <log-filters :filters="filters" :scopes="scopes"></log-filters>
-
-  {{ filters | json }}
+  <log-filters :scopes="scopes"></log-filters>
 
   <div class="row">
     <div class="col-md-12">
@@ -39,7 +37,7 @@
         </thead>
 
         <tbody>
-          <tr is="log" :log="log" :filters="filters" v-for="log in logs"></tr>
+          <tr is="log" :log="log" v-for="log in logs"></tr>
         </tbody>
       </table>
     </div>
@@ -50,13 +48,15 @@
   import _ from 'lodash'
   import LogComponent from './Log.vue'
   import LogFiltersComponent from './LogFilters.vue'
-  import { logs } from 'src/store/getters.js'
-  import { getLogs } from 'src/store/actions.js'
+  import { logs } from 'src/store/logs/getters.js'
+  import { getLogs } from 'src/store/logs/actions.js'
+  import { logFilters } from 'src/store/logFilters/getters.js'
+  import { addScopes } from 'src/store/logFilters/actions.js'
 
   export default {
     vuex: {
-      getters: { logs },
-      actions: { getLogs }
+      getters: { logs, logFilters },
+      actions: { getLogs, addScopes }
     },
 
     components: {
@@ -67,15 +67,7 @@
     data () {
       return {
         loading: true,
-        scopes: [],
-        filters: {
-          scopes: [],
-          levels: [],
-          start: null,
-          end: null,
-          user: '',
-          message: ''
-        }
+        scopes: []
       }
     },
 
@@ -87,8 +79,7 @@
 
           this.scopes = this.logs.map(function (a) { return a.scope })
           this.scopes = _.uniq(this.scopes)
-          this.filters.scopes = this.scopes
-          // this.filters.scopes = ['ip', 'request']
+          this.addScopes(this.scopes)
         })
     }
   }

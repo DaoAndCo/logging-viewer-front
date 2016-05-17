@@ -10,15 +10,20 @@
 </template>
 
 <script type="text/babel">
+  import { logFilters } from 'src/store/logFilters/getters.js'
+
   export default {
     props: {
-      log: Object,
-      filters: Object
+      log: Object
+    },
+
+    vuex: {
+      getters: { logFilters }
     },
 
     computed: {
       isVisible () {
-        return (this.filters.scopes.indexOf(this.log.scope) !== -1)
+        return (this.logFilters.scopes.indexOf(this.log.scope) !== -1)
       }
     }
   }

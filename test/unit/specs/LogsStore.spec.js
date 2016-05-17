@@ -1,6 +1,6 @@
-import { mutations } from 'src/store/modules/logs.js'
+import { mutations } from 'src/store/logs/store.js'
 
-describe('mutations', () => {
+describe('Logs_mutations', () => {
   it('ADD_LOG', () => {
     const state = {logs: [1, 2]}
     mutations.ADD_LOG(state, {message: 'Hey log ;)'})
