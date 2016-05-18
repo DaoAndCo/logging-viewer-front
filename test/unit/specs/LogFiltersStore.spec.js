@@ -103,4 +103,11 @@ describe('LogFilters_mutations', () => {
 
     expect(state.logFilters.message).to.equal('my message')
   })
+
+  it('SET_USER', () => {
+    const state = {logFilters: {user: ''}}
+    mutations.SET_USER(state, 'alex')
+
+    expect(state.logFilters.user).to.equal('alex')
+  })
 })

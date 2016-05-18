@@ -5,6 +5,11 @@
       <input id="logFilters-form-message" class="form-control" type="text" v-model="message" debounce="500">
     </div>
 
+    <div class="form-group">
+      <label for="logFilters-form-user">Utilisateur</label>
+      <input id="logFilters-form-user" class="form-control" type="text" v-model="user" debounce="500">
+    </div>
+
     <div style="display: inline-block">
       <span>Scopes</span>
 
@@ -28,23 +33,27 @@
 <script type="text/babel">
   import { scopes, levels } from 'src/store/logs/getters.js'
   import { logFilters as filters } from 'src/store/logFilters/getters.js'
-  import { toggleScope, toggleLevel, setMessage } from 'src/store/logFilters/actions.js'
+  import { toggleScope, toggleLevel, setMessage, setUser } from 'src/store/logFilters/actions.js'
 
   export default {
     vuex: {
       getters: { filters, scopes, levels },
-      actions: { toggleScope, toggleLevel, setMessage }
+      actions: { toggleScope, toggleLevel, setMessage, setUser }
     },
 
     data () {
       return {
-        message: ''
+        message: '',
+        user: ''
       }
     },
 
     watch: {
       message (value, oldValue) {
         this.setMessage(value)
+      },
+      user (value, oldValue) {
+        this.setUser(value)
       }
     },
 

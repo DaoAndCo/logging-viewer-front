@@ -17,3 +17,7 @@ export const addLevels = function (store, levels) {
 export const setMessage = function (store, message) {
   return store.dispatch('SET_MESSAGE', message)
 }
+
+export const setUser = function (store, user) {
+  return store.dispatch('SET_USER', user)
+}

@@ -64,6 +64,10 @@ export const mutations = {
 
   SET_MESSAGE (state, message) {
     state.logFilters.message = message
+  },
+
+  SET_USER (state, user) {
+    state.logFilters.user = user
   }
 }
 

@@ -27,6 +27,7 @@
             this.filters.scopes.indexOf(this.log.scope) !== -1 &&
             this.filters.levels.indexOf(this.log.level) !== -1 &&
             (!this.filters.message || this.log.message.search(new RegExp(this.filters.message, 'i')) !== -1)
+            // (!this.filters.user || this.log.user.search(new RegExp(this.filters.user, 'i')) !== -1)
         )
       }
     }
