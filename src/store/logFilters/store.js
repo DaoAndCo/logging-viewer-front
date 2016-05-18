@@ -60,6 +60,10 @@ export const mutations = {
     } else {
       mutations.REMOVE_LEVEL(state, level)
     }
+  },
+
+  SET_MESSAGE (state, message) {
+    state.logFilters.message = message
   }
 }
 

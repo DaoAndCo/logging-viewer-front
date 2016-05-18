@@ -96,4 +96,11 @@ describe('LogFilters_mutations', () => {
     expect(state.logFilters.levels).to.contain('l2')
     expect(state.logFilters.levels).not.to.contain('l1')
   })
+
+  it('SET_MESSAGE', () => {
+    const state = {logFilters: {message: ''}}
+    mutations.SET_MESSAGE(state, 'my message')
+
+    expect(state.logFilters.message).to.equal('my message')
+  })
 })

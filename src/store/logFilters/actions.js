@@ -13,3 +13,7 @@ export const toggleLevel = function (store, level) {
 export const addLevels = function (store, levels) {
   return store.dispatch('ADD_LEVELS', levels)
 }
+
+export const setMessage = function (store, message) {
+  return store.dispatch('SET_MESSAGE', message)
+}
