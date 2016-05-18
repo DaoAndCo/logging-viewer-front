@@ -1,4 +1,6 @@
 import _ from 'lodash'
+import moment from 'moment'
+moment.locale('fr')
 
 export const state = {
   logs: [],
@@ -8,11 +10,25 @@ export const state = {
 
 export const mutations = {
   ADD_LOGS (state, logs) {
+    logs.map(function (log) {
+      log.date = null
+
+      if (log.created) {
+        log.date = moment(log.created)
+        log.created = log.date.format('dddd D MMMM YYYY - H[h]mm')
+      }
+
+      return log
+    })
+
     state.logs.push(...logs)
   },
 
   ADD_LOG (state, log) {
-    state.logs.push(log)
+    let logs = []
+    logs.push(log)
+
+    return mutations.ADD_LOGS(state, logs)
   },
 
   EXTRACT_SCOPES (state) {

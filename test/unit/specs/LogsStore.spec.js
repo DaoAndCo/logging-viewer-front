@@ -3,16 +3,24 @@ import { mutations } from 'src/store/logs/store.js'
 describe('Logs_mutations', () => {
   it('ADD_LOG', () => {
     const state = {logs: [1, 2]}
-    mutations.ADD_LOG(state, {message: 'Hey log ;)'})
+    mutations.ADD_LOG(state, {'created': '2016-02-01 03:00:01', message: 'Hey log ;)'})
 
     expect(state.logs.length).to.equal(3)
+    expect(state.logs[2].created).to.equal('lundi 1 février 2016 - 3h00')
+    expect(state.logs[2].date).to.be.an('object')
   })
 
   it('ADD_LOGS', () => {
     const state = {logs: [1, 2]}
-    mutations.ADD_LOGS(state, [3, 4, 5])
+    mutations.ADD_LOGS(state, [
+      {'created': '2016-02-01 03:00:01', message: 'msg 1'},
+      {'created': '2016-02-21 12:05:01', message: 'msg 2'},
+      {'created': '2016-03-01 17:53:21', message: 'msg 3'}
+    ])
 
     expect(state.logs.length).to.equal(5)
+    expect(state.logs[2].created).to.equal('lundi 1 février 2016 - 3h00')
+    expect(state.logs[3].created).to.equal('dimanche 21 février 2016 - 12h05')
   })
 
   it('EXTRACT_SCOPES', () => {
