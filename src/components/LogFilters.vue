@@ -1,43 +1,64 @@
+<style lang="scss">
+  @import 'src/assets/scss/logFilters';
+</style>
+
 <template>
-  <form class="logFilters form-inline" @submit.prevent>
-    <div class="form-group">
-      <label for="logFilters-form-start">Date de début</label>
-      <input id="logFilters-form-start" class="form-control" type="text" v-model="start" debounce="500">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#logFilters-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Filtres</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="logFilters-navbar">
+        <form class="navbar-form navbar-left" @submit.prevent>
+          <div class="logFilters-section form-group">
+            <label class="logFilters-label" for="logFilters-form-start">Date de début</label>
+            <input id="logFilters-form-start" class="form-control" type="text" v-model="start" debounce="500">
+          </div>
+
+          <div class="logFilters-section form-group">
+            <label class="logFilters-label" for="logFilters-form-end">Date de fin</label>
+            <input id="logFilters-form-end" class="form-control" type="text" v-model="end" debounce="500">
+          </div>
+
+          <div class="logFilters-section form-group">
+            <label class="logFilters-label" for="logFilters-form-message">Message</label>
+            <input id="logFilters-form-message" class="form-control" type="text" v-model="message" debounce="500">
+          </div>
+
+          <div class="logFilters-section form-group">
+            <label class="logFilters-label" for="logFilters-form-user">Utilisateur</label>
+            <input id="logFilters-form-user" class="form-control" type="text" v-model="user" debounce="500">
+          </div>
+
+          <div class="logFilters-section">
+            <span class="logFilters-label">Scopes</span>
+
+            <label class="checkbox-inline" v-for="scope in scopes">
+              <input type="checkbox" :value="scope" :checked="this.filters.scopes.indexOf(scope) !== -1" @change="changeScope">
+              {{ scope }}
+            </label>
+          </div>
+
+          <div class="logFilters-section">
+            <span class="logFilters-label">Niveaux</span>
+
+            <label class="checkbox-inline" v-for="level in levels">
+              <input type="checkbox" :value="level" :checked="this.filters.levels.indexOf(level) !== -1" @change="changeLevel">
+              {{ level }}
+            </label>
+          </div>
+        </form>
+      </div>
     </div>
-
-    <div class="form-group">
-      <label for="logFilters-form-end">Date de fin</label>
-      <input id="logFilters-form-end" class="form-control" type="text" v-model="end" debounce="500">
-    </div>
-
-    <div class="form-group">
-      <label for="logFilters-form-message">Message</label>
-      <input id="logFilters-form-message" class="form-control" type="text" v-model="message" debounce="500">
-    </div>
-
-    <div class="form-group">
-      <label for="logFilters-form-user">Utilisateur</label>
-      <input id="logFilters-form-user" class="form-control" type="text" v-model="user" debounce="500">
-    </div>
-
-    <div style="display: inline-block">
-      <span>Scopes</span>
-
-      <label class="checkbox-inline" v-for="scope in scopes">
-        <input type="checkbox" :value="scope" :checked="this.filters.scopes.indexOf(scope) !== -1" @change="changeScope">
-        {{ scope }}
-      </label>
-    </div>
-
-    <div style="display: inline-block">
-      <span>Niveaux</span>
-
-      <label class="checkbox-inline" v-for="level in levels">
-        <input type="checkbox" :value="level" :checked="this.filters.levels.indexOf(level) !== -1" @change="changeLevel">
-        {{ level }}
-      </label>
-    </div>
-  </form>
+  </nav>
 </template>
 
 <script type="text/babel">

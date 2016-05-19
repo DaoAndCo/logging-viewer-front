@@ -1,3 +1,7 @@
+<style lang="scss">
+  @import 'src/assets/scss/generic';
+</style>
+
 <template>
   <div class="container-fluid">
     <logs></logs>
