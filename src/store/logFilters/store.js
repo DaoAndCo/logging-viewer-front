@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 export const state = {
   logFilters: {
     scopes: [],
@@ -68,6 +70,22 @@ export const mutations = {
 
   SET_USER (state, user) {
     state.logFilters.user = user
+  },
+
+  SET_START (state, date) {
+    state.logFilters.start = null
+
+    if (Date.parse(date)) {
+      state.logFilters.start = moment(date)
+    }
+  },
+
+  SET_END (state, date) {
+    state.logFilters.end = null
+
+    if (Date.parse(date)) {
+      state.logFilters.end = moment(date)
+    }
   }
 }
 

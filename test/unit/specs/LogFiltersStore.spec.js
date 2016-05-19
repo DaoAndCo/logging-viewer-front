@@ -110,4 +110,36 @@ describe('LogFilters_mutations', () => {
 
     expect(state.logFilters.user).to.equal('alex')
   })
+
+  it('SET_START', () => {
+    let date = '2016-01-02'
+    const state = {logFilters: {start: null}}
+    mutations.SET_START(state, date)
+
+    expect(state.logFilters.start.format('YYYY-MM-DD')).to.equal(date)
+  })
+
+  it('SET_START_INVALID', () => {
+    let date = 'invalid'
+    const state = {logFilters: {start: null}}
+    mutations.SET_START(state, date)
+
+    expect(state.logFilters.start).to.be.null
+  })
+
+  it('SET_END', () => {
+    let date = '2016-01-02'
+    const state = {logFilters: {end: null}}
+    mutations.SET_END(state, date)
+
+    expect(state.logFilters.end.format('YYYY-MM-DD')).to.equal(date)
+  })
+
+  it('SET_END_INVALID', () => {
+    let date = 'invalid'
+    const state = {logFilters: {end: null}}
+    mutations.SET_END(state, date)
+
+    expect(state.logFilters.end).to.be.null
+  })
 })

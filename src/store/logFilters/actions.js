@@ -21,3 +21,11 @@ export const setMessage = function (store, message) {
 export const setUser = function (store, user) {
   return store.dispatch('SET_USER', user)
 }
+
+export const setStart = function (store, date) {
+  return store.dispatch('SET_START', date)
+}
+
+export const setEnd = function (store, date) {
+  return store.dispatch('SET_END', date)
+}
