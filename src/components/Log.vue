@@ -5,12 +5,15 @@
     <td>{{ log.scope }}</td>
     <td>{{ log.user_id }}</td>
     <td>{{ log.message }}</td>
-    <td>{{ log.context | json }}</td>
+    <td>
+        <button class="btn" data-toggle="modal" data-target="#myModal" @click="showContext">Afficher le contexte</button>
+    </td>
   </tr>
 </template>
 
 <script type="text/babel">
   import { logFilters as filters } from 'src/store/logFilters/getters.js'
+  import { setTitle, setContent } from 'src/store/modal/actions.js'
 
   export default {
     props: {
@@ -18,7 +21,8 @@
     },
 
     vuex: {
-      getters: { filters }
+      getters: { filters },
+      actions: { setTitle, setContent }
     },
 
     computed: {
@@ -31,6 +35,15 @@
             (!this.filters.start || this.log.date.isSameOrAfter(this.filters.start)) &&
             (!this.filters.end || this.log.date.isSameOrBefore(this.filters.end))
         )
+      }
+    },
+
+    methods: {
+      showContext (event) {
+        this.setTitle('Contexte')
+        let context = document.createElement('pre')
+        context.innerHTML = this.$options.filters.json.read(this.log.context, 4)
+        this.setContent(context.outerHTML)
       }
     }
   }

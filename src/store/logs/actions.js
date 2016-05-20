@@ -10,7 +10,7 @@ var api = axios.create({
 
 export const getLogs = function (store) {
   return api
-    .post('find', {config: 'logs'})
+    .post('find', {config: 'logs', limit: 500, order: {created: 'DESC'}})
     .then((response) => {
       store.dispatch('ADD_LOGS', response.data.logs)
       store.dispatch('EXTRACT_SCOPES')
