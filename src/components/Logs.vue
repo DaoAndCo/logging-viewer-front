@@ -37,8 +37,12 @@
         </thead>
 
         <tbody>
-          <tr is="log" :log="log" v-for="log in logs"></tr>
+          <tr is="log" :log="log" v-for="log in logPage"></tr>
         </tbody>
+
+        <tfoot>
+          <tr is="pagination"></tr>
+        </tfoot>
       </table>
     </div>
   </div>
@@ -47,25 +51,35 @@
 <script type="text/babel">
   import LogComponent from './Log.vue'
   import LogFiltersComponent from './LogFilters.vue'
+  import PaginationComponent from './Pagination.vue'
   import { logs, scopes, levels } from 'src/store/logs/getters.js'
   import { getLogs } from 'src/store/logs/actions.js'
   import { logFilters } from 'src/store/logFilters/getters.js'
   import { addScopes, addLevels } from 'src/store/logFilters/actions.js'
+  import { pagination } from 'src/store/pagination/getters.js'
+  import { paginate } from 'src/store/pagination/actions.js'
 
   export default {
     vuex: {
-      getters: { logs, logFilters, scopes, levels },
-      actions: { getLogs, addScopes, addLevels }
+      getters: { logs, logFilters, scopes, levels, pagination },
+      actions: { getLogs, addScopes, addLevels, paginate }
     },
 
     components: {
       log: LogComponent,
-      logFilters: LogFiltersComponent
+      logFilters: LogFiltersComponent,
+      pagination: PaginationComponent
     },
 
     data () {
       return {
         loading: true
+      }
+    },
+
+    computed: {
+      logPage () {
+        return this.pagination.items[this.pagination.currentIndex]
       }
     },
 
@@ -77,6 +91,7 @@
 
           this.addScopes(this.scopes)
           this.addLevels(this.levels)
+          this.paginate(this.logs)
         })
     }
   }
