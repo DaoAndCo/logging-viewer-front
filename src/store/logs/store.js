@@ -31,6 +31,10 @@ export const mutations = {
     return mutations.ADD_LOGS(state, logs)
   },
 
+  CLEAR_LOGS (state) {
+    state.logs = []
+  },
+
   EXTRACT_SCOPES (state) {
     state.scopes = state.logs.map(function (a) { return a.scope })
     state.scopes = _.uniq(state.scopes)

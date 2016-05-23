@@ -8,17 +8,22 @@
 
 <script type="text/babel">
   import { pagination } from 'src/store/pagination/getters.js'
-  import { changePage } from 'src/store/pagination/actions.js'
+  import { changePage, loadPage } from 'src/store/pagination/actions.js'
 
   export default {
     vuex: {
       getters: { pagination },
-      actions: { changePage }
+      actions: { changePage, loadPage }
+    },
+
+    props: {
+      loading: Boolean
     },
 
     methods: {
       eventChangePage (event) {
         this.changePage(event.target.value)
+        this.loadPage()
       }
     }
   }

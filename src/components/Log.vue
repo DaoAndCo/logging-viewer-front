@@ -1,5 +1,5 @@
 <template>
-  <tr v-if="isVisible">
+  <tr>
     <td>{{ log.created }}</td>
     <td>{{ log.level }}</td>
     <td>{{ log.scope }}</td>

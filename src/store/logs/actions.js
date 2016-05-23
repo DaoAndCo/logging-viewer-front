@@ -8,15 +8,27 @@ var api = axios.create({
   }
 })
 
-export const getLogs = function (store) {
+export const loadLogs = function (store, page) {
+  store.dispatch('CLEAR_LOGS')
   return api
-    .post('find', {config: 'logs', limit: 500, order: {created: 'DESC'}})
+    .post('find?page=' + page, {config: 'logs'})
     .then((response) => {
       store.dispatch('ADD_LOGS', response.data.logs)
-      store.dispatch('EXTRACT_SCOPES')
-      store.dispatch('EXTRACT_LEVELS')
     })
     .catch((response) => {
       console.log(response)
     })
 }
+
+// export const getLogs = function (store) {
+//   return api
+//     .post('find', {config: 'logs', limit: 500, order: {created: 'DESC'}})
+//     .then((response) => {
+//       store.dispatch('ADD_LOGS', response.data.logs)
+//       store.dispatch('EXTRACT_SCOPES')
+//       store.dispatch('EXTRACT_LEVELS')
+//     })
+//     .catch((response) => {
+//       console.log(response)
+//     })
+// }

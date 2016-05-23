@@ -37,11 +37,11 @@
         </thead>
 
         <tbody>
-          <tr is="log" :log="log" v-for="log in logPage"></tr>
+          <tr is="log" :log="log" v-for="log in logs"></tr>
         </tbody>
 
         <tfoot>
-          <tr is="pagination"></tr>
+          <tr is="pagination" :loading.sync="loading"></tr>
         </tfoot>
       </table>
     </div>
@@ -53,16 +53,16 @@
   import LogFiltersComponent from './LogFilters.vue'
   import PaginationComponent from './Pagination.vue'
   import { logs, scopes, levels } from 'src/store/logs/getters.js'
-  import { getLogs } from 'src/store/logs/actions.js'
+  import { loadLogs } from 'src/store/logs/actions.js'
   import { logFilters } from 'src/store/logFilters/getters.js'
   import { addScopes, addLevels } from 'src/store/logFilters/actions.js'
   import { pagination } from 'src/store/pagination/getters.js'
-  import { paginate } from 'src/store/pagination/actions.js'
+  import { setPaginationFunction, loadPage } from 'src/store/pagination/actions.js'
 
   export default {
     vuex: {
       getters: { logs, logFilters, scopes, levels, pagination },
-      actions: { getLogs, addScopes, addLevels, paginate }
+      actions: { loadLogs, addScopes, addLevels, setPaginationFunction, loadPage }
     },
 
     components: {
@@ -77,22 +77,27 @@
       }
     },
 
-    computed: {
-      logPage () {
-        return this.pagination.items[this.pagination.currentIndex]
-      }
-    },
+    // computed: {
+    //   logPage () {
+    //     return this.pagination.items[this.pagination.currentIndex]
+    //   }
+    // },
 
     ready () {
-      this
-        .getLogs()
+      this.setPaginationFunction(this.loadLogs)
+      this.loadPage()
         .then(() => {
           this.loading = false
-
-          this.addScopes(this.scopes)
-          this.addLevels(this.levels)
-          this.paginate(this.logs)
         })
+      // this
+      //   .getLogs()
+      //   .then(() => {
+      //     this.loading = false
+
+      //     this.addScopes(this.scopes)
+      //     this.addLevels(this.levels)
+      //     this.paginate(this.logs)
+      //   })
     }
   }
 
