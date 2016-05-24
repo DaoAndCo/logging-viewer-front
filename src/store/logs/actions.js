@@ -14,6 +14,8 @@ export const loadLogs = function (store, page) {
     .post('find?page=' + page, {config: 'logs'})
     .then((response) => {
       store.dispatch('ADD_LOGS', response.data.logs)
+      response.pagination = response.data.pagination.Logs
+      return response
     })
     .catch((response) => {
       console.log(response)

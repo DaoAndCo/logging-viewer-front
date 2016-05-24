@@ -1,9 +1,19 @@
 export const state = {
   loadFunction: null,
-  current: 1,
-  total: null,
-  perPage: 20,
-  items: []
+  api: {
+    count: null,
+    current: null,
+    direction: null,
+    directionDefault: null,
+    limit: null,
+    nextPage: null,
+    page: 1,
+    pageCount: null,
+    perPage: 20,
+    prevPage: null,
+    sort: null,
+    sortDefault: null
+  }
 }
 
 export const mutations = {
@@ -12,7 +22,12 @@ export const mutations = {
   },
 
   CHANGE_PAGE (state, page) {
-    state.current = page
+    state.api.page = page
+  },
+
+  SET_API (state, api) {
+    state.api = api
+    console.log(state.api.page)
   }
 }
 

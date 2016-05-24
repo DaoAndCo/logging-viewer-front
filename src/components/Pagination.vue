@@ -1,7 +1,7 @@
 <template>
   <tr>
     <td>
-      <input type="text" :value="pagination.current" @change="eventChangePage">
+      <input type="text" :value="pagination.api.page" @change="eventChangePage">
     </td>
   </tr>
 </template>

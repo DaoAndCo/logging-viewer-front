@@ -7,5 +7,8 @@ export const changePage = function (store, page) {
 }
 
 export const loadPage = function (store) {
-  return store.state.pagination.loadFunction(store.state.pagination.current)
+  return store.state.pagination.loadFunction(store.state.pagination.api.page)
+    .then((response) => {
+      store.dispatch('SET_API', response.pagination)
+    })
 }
