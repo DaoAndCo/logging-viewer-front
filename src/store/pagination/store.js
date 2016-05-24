@@ -27,7 +27,6 @@ export const mutations = {
 
   SET_API (state, api) {
     state.api = api
-    console.log(state.api.page)
   }
 }
 
