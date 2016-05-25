@@ -4,8 +4,8 @@ export const state = {
   logFilters: {
     scopes: [],
     levels: [],
-    start: null,
-    end: null,
+    start: '',
+    end: '',
     user: '',
     message: ''
   }
