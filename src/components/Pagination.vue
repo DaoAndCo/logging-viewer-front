@@ -1,9 +1,11 @@
+<style lang="scss">
+  @import 'src/assets/scss/pagination';
+</style>
+
 <template>
   <tr>
     <td colspan="6">
-      <input type="text" :value="pagination.api.page" @change="eventChangePage">
-
-      <nav>
+      <nav class="pagination-nav">
         <ul class="pagination">
           <li :class="[pagination.api.prevPage ? '' : classDisabled]">
             <a href="#" aria-label="Previous" data-can="{{ [pagination.api.prevPage ? 1 : 0] }}" data-page="{{ pagination.api.page - 1 }}" @click.prevent="eventChangePageByLink">
@@ -22,6 +24,8 @@
           </li>
         </ul>
       </nav>
+
+      <input class="pagination-input form-control" type="text" :value="pagination.api.page" @change="eventChangePage">
     </td>
   </tr>
 </template>
