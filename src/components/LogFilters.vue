@@ -3,11 +3,11 @@
 </style>
 
 <template>
-  <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
 
+  <nav class="navbar logFilters-nav navbar-default navbar-fixed-top">
+    <div class="container-fluid">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#logFilters-navbar" aria-expanded="false">
+        <button type="button" class="logFilters-toggle collapsed" data-toggle="collapse" data-target="#logFilters-navbar" aria-expanded="false">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
@@ -16,8 +16,8 @@
         <a class="navbar-brand" href="#">Filtres</a>
       </div>
 
-      <div class="collapse navbar-collapse" id="logFilters-navbar">
-        <form class="navbar-form navbar-left" @submit.prevent>
+      <div class="collapse" id="logFilters-navbar">
+        <form class="logFilters-form" @submit.prevent>
           <div class="logFilters-section form-group">
             <label class="logFilters-label" for="logFilters-form-start">Date de début</label>
             <input id="logFilters-form-start" class="form-control" type="text" v-model="start" debounce="500">
@@ -59,6 +59,7 @@
       </div>
     </div>
   </nav>
+
 </template>
 
 <script type="text/babel">

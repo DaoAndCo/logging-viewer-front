@@ -4,7 +4,7 @@
 
 <template>
   <tr>
-    <td colspan="6">
+    <td class="pagination-container" colspan="6">
       <nav class="pagination-nav">
         <ul class="pagination">
           <li :class="[pagination.api.prevPage ? '' : classDisabled]">
