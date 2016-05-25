@@ -11,7 +11,7 @@
             </a>
           </li>
 
-          <li v-for="page in pages" :class="[page == pagination.api.page ? classDisabled : '']">
+          <li v-for="page in pages" track-by="$index" :class="[page == pagination.api.page ? classDisabled : '']">
             <a href="#" data-page="{{ page }}" data-can="{{ page === '...' ? 0 : 1 }}" @click.prevent="eventChangePageByLink">{{ page }}</a>
           </li>
 
@@ -27,6 +27,7 @@
 </template>
 
 <script type="text/babel">
+  import _ from 'lodash'
   import { pagination } from 'src/store/pagination/getters.js'
   import { changePage, loadPage } from 'src/store/pagination/actions.js'
 
@@ -68,12 +69,12 @@
             this.pages = [1]
 
             let lastPages = []
-            // let nextPages = []
+            let nextPages = []
 
             if (this.pagination.api.prevPage) {
               let prev = this.pagination.api.page - 1
 
-              for (var i = prev; i > prev - this.offset; i--) {
+              for (let i = prev; i > prev - this.offset; i--) {
                 if (i > 1) {
                   lastPages.unshift(i)
                 }
@@ -85,6 +86,23 @@
 
               this.pages = this.pages.concat(lastPages)
               this.pages.push(this.pagination.api.page)
+            }
+
+            if (this.pagination.api.nextPage) {
+              let next = this.pagination.api.page + 1
+
+              for (let i = next; i < next + this.offset; i++) {
+                if (i < this.pagination.api.pageCount) {
+                  nextPages.push(i)
+                }
+              }
+
+              if (_.last(nextPages) < (this.pagination.api.pageCount - 1)) {
+                nextPages.push('...')
+              }
+
+              nextPages.push(this.pagination.api.pageCount)
+              this.pages = this.pages.concat(nextPages)
             }
           })
       }
