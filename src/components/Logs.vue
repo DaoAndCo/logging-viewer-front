@@ -41,7 +41,7 @@
         </tbody>
 
         <tfoot>
-          <tr is="pagination" :loading.sync="loading"></tr>
+          <tr is="pagination" :loading.sync="loading" v-if="!loading"></tr>
         </tfoot>
       </table>
     </div>
@@ -77,27 +77,12 @@
       }
     },
 
-    // computed: {
-    //   logPage () {
-    //     return this.pagination.items[this.pagination.currentIndex]
-    //   }
-    // },
-
     ready () {
       this.setPaginationFunction(this.loadLogs)
       this.loadPage()
         .then(() => {
           this.loading = false
         })
-      // this
-      //   .getLogs()
-      //   .then(() => {
-      //     this.loading = false
-
-      //     this.addScopes(this.scopes)
-      //     this.addLevels(this.levels)
-      //     this.paginate(this.logs)
-      //   })
     }
   }
 

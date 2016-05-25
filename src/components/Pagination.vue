@@ -70,46 +70,54 @@
         this.changePage(value)
         this.loadPage()
           .then((response) => {
-            this.pages = [1]
-
-            let lastPages = []
-            let nextPages = []
-
-            if (this.pagination.api.prevPage) {
-              let prev = this.pagination.api.page - 1
-
-              for (let i = prev; i > prev - this.offset; i--) {
-                if (i > 1) {
-                  lastPages.unshift(i)
-                }
-              }
-
-              if (lastPages[0] > 2) {
-                this.pages.push('...')
-              }
-
-              this.pages = this.pages.concat(lastPages)
-              this.pages.push(this.pagination.api.page)
-            }
-
-            if (this.pagination.api.nextPage) {
-              let next = this.pagination.api.page + 1
-
-              for (let i = next; i < next + this.offset; i++) {
-                if (i < this.pagination.api.pageCount) {
-                  nextPages.push(i)
-                }
-              }
-
-              if (_.last(nextPages) < (this.pagination.api.pageCount - 1)) {
-                nextPages.push('...')
-              }
-
-              nextPages.push(this.pagination.api.pageCount)
-              this.pages = this.pages.concat(nextPages)
-            }
+            this.generatePagination()
           })
+      },
+
+      generatePagination () {
+        this.pages = [1]
+
+        let lastPages = []
+        let nextPages = []
+
+        if (this.pagination.api.prevPage) {
+          let prev = this.pagination.api.page - 1
+
+          for (let i = prev; i > prev - this.offset; i--) {
+            if (i > 1) {
+              lastPages.unshift(i)
+            }
+          }
+
+          if (lastPages[0] > 2) {
+            this.pages.push('...')
+          }
+
+          this.pages = this.pages.concat(lastPages)
+          this.pages.push(this.pagination.api.page)
+        }
+
+        if (this.pagination.api.nextPage) {
+          let next = this.pagination.api.page + 1
+
+          for (let i = next; i < next + this.offset; i++) {
+            if (i < this.pagination.api.pageCount) {
+              nextPages.push(i)
+            }
+          }
+
+          if (_.last(nextPages) < (this.pagination.api.pageCount - 1)) {
+            nextPages.push('...')
+          }
+
+          nextPages.push(this.pagination.api.pageCount)
+          this.pages = this.pages.concat(nextPages)
+        }
       }
+    },
+
+    ready () {
+      this.generatePagination()
     }
   }
 
