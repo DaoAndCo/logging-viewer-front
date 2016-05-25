@@ -3,7 +3,7 @@
     <td>{{ log.created }}</td>
     <td>{{ log.level }}</td>
     <td>{{ log.scope }}</td>
-    <td>{{ log.user_id }}</td>
+    <td>{{ user }}</td>
     <td>{{ log.message }}</td>
     <td>
         <button class="btn" data-toggle="modal" data-target="#myModal" @click="showContext">Afficher le contexte</button>
@@ -26,15 +26,22 @@
     },
 
     computed: {
-      isVisible () {
-        return (
-            this.filters.scopes.indexOf(this.log.scope) !== -1 &&
-            this.filters.levels.indexOf(this.log.level) !== -1 &&
-            (!this.filters.message || this.log.message.search(new RegExp(this.filters.message, 'i')) !== -1) &&
-            // (!this.filters.user || this.log.user.search(new RegExp(this.filters.user, 'i')) !== -1) &&
-            (!this.filters.start || this.log.date.isSameOrAfter(this.filters.start)) &&
-            (!this.filters.end || this.log.date.isSameOrBefore(this.filters.end))
-        )
+      user () {
+        if (!this.log.user_id) {
+          return ''
+        }
+
+        let user = '[' + this.log.user_id + ']'
+
+        if (this.log.user.firstname) {
+          user += ' ' + this.log.user.firstname
+        }
+
+        if (this.log.user.lastname) {
+          user += ' ' + this.log.user.lastname
+        }
+
+        return user
       }
     },
 
