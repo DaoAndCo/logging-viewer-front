@@ -25,7 +25,7 @@
         </ul>
       </nav>
 
-      <input class="pagination-input form-control" type="text" :value="pagination.api.page" @change="eventChangePage">
+      <input class="pagination-input form-control" type="text" :value="numPage" @change="eventChangePage">
     </td>
   </tr>
 </template>
@@ -33,12 +33,12 @@
 <script type="text/babel">
   import _ from 'lodash'
   import { pagination } from 'src/store/pagination/getters.js'
-  import { changePage, loadPage } from 'src/store/pagination/actions.js'
+  import { loadPage, setPage } from 'src/store/pagination/actions.js'
 
   export default {
     vuex: {
       getters: { pagination },
-      actions: { changePage, loadPage }
+      actions: { loadPage, setPage }
     },
 
     props: {
@@ -50,6 +50,25 @@
       return {
         classDisabled: 'disabled',
         pages: [1]
+      }
+    },
+
+    computed: {
+      numPage () {
+        return this.pagination.page
+      }
+    },
+
+    watch: {
+      numPage (value, oldValue) {
+        if (value) {
+          this.loadPage()
+            .then((response) => {
+              this.generatePagination()
+            })
+        } else {
+          this.setPage(1)
+        }
       }
     },
 
@@ -67,11 +86,12 @@
       },
 
       executeChangePage (value) {
-        this.changePage(value)
-        this.loadPage()
-          .then((response) => {
-            this.generatePagination()
-          })
+        this.setPage(value)
+        // this.changePage(value)
+        // this.loadPage()
+        //   .then((response) => {
+        //     this.generatePagination()
+        //   })
       },
 
       generatePagination () {
@@ -117,7 +137,7 @@
     },
 
     ready () {
-      this.generatePagination()
+      // this.generatePagination()
     }
   }
 

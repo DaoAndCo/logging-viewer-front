@@ -11,7 +11,6 @@ var api = axios.create({
 
 export const loadLogs = function (store, page) {
   store.dispatch('CLEAR_LOGS')
-  console.log(store._vm.logFilters.logFilters)
 
   let datas = store._vm.logFilters.logFilters
   datas.config = Config.api.log

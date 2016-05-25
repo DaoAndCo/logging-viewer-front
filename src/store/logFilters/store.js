@@ -73,7 +73,7 @@ export const mutations = {
   },
 
   SET_START (state, date) {
-    state.logFilters.start = null
+    state.logFilters.start = ''
 
     if (Date.parse(date)) {
       state.logFilters.start = moment(date)
@@ -81,7 +81,7 @@ export const mutations = {
   },
 
   SET_END (state, date) {
-    state.logFilters.end = null
+    state.logFilters.end = ''
 
     if (Date.parse(date)) {
       state.logFilters.end = moment(date)

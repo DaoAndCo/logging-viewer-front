@@ -41,7 +41,7 @@
         </tbody>
 
         <tfoot>
-          <tr is="pagination" :loading.sync="loading" v-if="!loading"></tr>
+          <tr is="pagination"></tr>
         </tfoot>
       </table>
     </div>
@@ -57,12 +57,12 @@
   import { logFilters } from 'src/store/logFilters/getters.js'
   import { addScopes, addLevels } from 'src/store/logFilters/actions.js'
   import { pagination } from 'src/store/pagination/getters.js'
-  import { setPaginationFunction, loadPage } from 'src/store/pagination/actions.js'
+  import { setPaginationFunction, setPage } from 'src/store/pagination/actions.js'
 
   export default {
     vuex: {
       getters: { logs, logFilters, scopes, levels, pagination },
-      actions: { loadLogs, addScopes, addLevels, setPaginationFunction, loadPage }
+      actions: { loadLogs, addScopes, addLevels, setPaginationFunction, setPage }
     },
 
     components: {
@@ -73,16 +73,13 @@
 
     data () {
       return {
-        loading: true
+        loading: false
       }
     },
 
     ready () {
       this.setPaginationFunction(this.loadLogs)
-      this.loadPage()
-        .then(() => {
-          this.loading = false
-        })
+      this.setPage(1)
     }
   }
 

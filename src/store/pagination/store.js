@@ -1,5 +1,6 @@
 export const state = {
   loadFunction: null,
+  page: null,
   api: {
     count: null,
     current: null,
@@ -21,8 +22,8 @@ export const mutations = {
     state.loadFunction = fn
   },
 
-  CHANGE_PAGE (state, page) {
-    state.api.page = page
+  SET_PAGE (state, page) {
+    state.page = parseInt(page, 10)
   },
 
   SET_API (state, api) {
