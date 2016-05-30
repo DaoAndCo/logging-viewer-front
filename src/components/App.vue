@@ -4,7 +4,8 @@
 
 <template>
   <div class="container-fluid">
-    <logs></logs>
+    <login v-if="!isLogged"></login>
+    <logs v-if="isLogged"></logs>
   </div>
 
   <modal></modal>
@@ -12,11 +13,19 @@
 
 <script type="text/babel">
   import LogsComponent from './Logs.vue'
+  import LoginComponent from './Login.vue'
   import ModalComponent from './Modal.vue'
+  import { isLogged } from 'src/store/user/getters.js'
 
   export default {
+    vuex: {
+      getters: { isLogged },
+      actions: { }
+    },
+
     components: {
       logs: LogsComponent,
+      login: LoginComponent,
       modal: ModalComponent
     }
   }
