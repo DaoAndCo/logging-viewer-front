@@ -10,7 +10,7 @@ export const login = function (store, username, password) {
     username: username,
     password: password
   }
-  console.log(api)
+
   return api
     .post('configs')
     .then((response) => {
