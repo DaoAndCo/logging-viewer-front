@@ -11,6 +11,10 @@ export const mutations = {
     state.password = password
     state.configs = configs
     state.config = (configs.length) ? configs[0] : null
+
+    window.sessionStorage.setItem('api-username', username)
+    window.sessionStorage.setItem('api-password', password)
+    window.sessionStorage.setItem('api-configs', JSON.stringify(configs))
   }
 }
 

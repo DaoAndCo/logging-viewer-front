@@ -16,17 +16,22 @@
   import LoginComponent from './Login.vue'
   import ModalComponent from './Modal.vue'
   import { isLogged } from 'src/store/user/getters.js'
+  import { checkLogin } from 'src/store/user/actions.js'
 
   export default {
     vuex: {
       getters: { isLogged },
-      actions: { }
+      actions: { checkLogin }
     },
 
     components: {
       logs: LogsComponent,
       login: LoginComponent,
       modal: ModalComponent
+    },
+
+    ready () {
+      this.checkLogin()
     }
   }
 

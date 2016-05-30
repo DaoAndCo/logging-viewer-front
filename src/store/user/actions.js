@@ -24,3 +24,13 @@ export const login = function (store, username, password) {
       return response
     })
 }
+
+export const checkLogin = function (store) {
+  let username = window.sessionStorage.getItem('api-username')
+  let password = window.sessionStorage.getItem('api-password')
+  let configs = window.sessionStorage.getItem('api-configs')
+
+  if (username && password && configs) {
+    store.dispatch('SET_LOGIN', username, password, JSON.parse(configs))
+  }
+}
