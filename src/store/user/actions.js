@@ -34,3 +34,7 @@ export const checkLogin = function (store) {
     store.dispatch('SET_LOGIN', username, password, JSON.parse(configs))
   }
 }
+
+export const setConfig = function (store, config) {
+  store.dispatch('SET_CONFIG', config)
+}

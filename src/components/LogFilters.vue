@@ -18,6 +18,13 @@
 
       <div class="collapse" id="logFilters-navbar">
         <form class="logFilters-form" @submit.prevent>
+          <div class="form-group">
+            <label class="logFilters-label" for="log-config">Application</label>
+            <select id="log-config" class="form-control" v-model="selectedConfig">
+              <option v-for="config in user.configs" :value="config">{{ config }}</option>
+            </select>
+          </div>
+
           <div class="logFilters-section form-group">
             <label class="logFilters-label" for="logFilters-form-start">Date de début</label>
             <input id="logFilters-form-start" class="form-control" type="text" @blur="changeFilter" @keyup.enter="changeFilter" data-action="setStart" data-get="start">
@@ -67,11 +74,26 @@
   import { logFilters as filters } from 'src/store/logFilters/getters.js'
   import { toggleScope, toggleLevel, setMessage, setUser, setStart, setEnd } from 'src/store/logFilters/actions.js'
   import { setPage } from 'src/store/pagination/actions.js'
+  import { user } from 'src/store/user/getters.js'
+  import { setConfig } from 'src/store/user/actions.js'
 
   export default {
     vuex: {
-      getters: { filters, scopes, levels },
-      actions: { toggleScope, toggleLevel, setMessage, setUser, setStart, setEnd, setPage }
+      getters: { filters, scopes, levels, user },
+      actions: { toggleScope, toggleLevel, setMessage, setUser, setStart, setEnd, setPage, setConfig }
+    },
+
+    data () {
+      return {
+        selectedConfig: this.user.config
+      }
+    },
+
+    watch: {
+      selectedConfig (value, oldValue) {
+        this.setConfig(value)
+        this.setPage(null)
+      }
     },
 
     methods: {
